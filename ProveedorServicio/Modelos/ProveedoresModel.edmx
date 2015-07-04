@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProveedoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProveedoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,6 +12,24 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="PadreId" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CI" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="TipoMovimiento" Type="int" Nullable="false" />
+          <Property Name="ProductoId" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -44,6 +62,14 @@
           <Property Name="Telefono" Type="varchar" MaxLength="50" />
           <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProveedorCliente">
+          <Key>
+            <PropertyRef Name="ProveedorId" />
+            <PropertyRef Name="ClienteId" />
+          </Key>
+          <Property Name="ProveedorId" Type="int" Nullable="false" />
+          <Property Name="ClienteId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ProveedorProducto">
           <Key>
             <PropertyRef Name="ProveedorId" />
@@ -64,6 +90,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Movimiento_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Producto_Categoria">
           <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -73,6 +111,30 @@
             </Principal>
             <Dependent Role="Producto">
               <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProveedorCliente_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="ProveedorCliente" Type="Self.ProveedorCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProveedorCliente">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProveedorCliente_Proveedor">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="ProveedorCliente" Type="Self.ProveedorCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProveedorCliente">
+              <PropertyRef Name="ProveedorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -102,16 +164,31 @@
         </Association>
         <EntityContainer Name="ProveedoresModelStoreContainer">
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProveedorCliente" EntityType="Self.ProveedorCliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProveedorProducto" EntityType="Self.ProveedorProducto" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Categoria_Categoria" Association="Self.FK_Categoria_Categoria">
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Categoria1" EntitySet="Categoria" />
           </AssociationSet>
+          <AssociationSet Name="FK_Movimiento_Producto" Association="Self.FK_Movimiento_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
           <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProveedorCliente_Cliente" Association="Self.FK_ProveedorCliente_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="ProveedorCliente" EntitySet="ProveedorCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProveedorCliente_Proveedor" Association="Self.FK_ProveedorCliente_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="ProveedorCliente" EntitySet="ProveedorCliente" />
           </AssociationSet>
           <AssociationSet Name="FK_ProveedorProducto_Producto" Association="Self.FK_ProveedorProducto_Producto">
             <End Role="Producto" EntitySet="Producto" />
@@ -122,8 +199,7 @@
             <End Role="ProveedorProducto" EntitySet="ProveedorProducto" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProveedoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -157,6 +233,7 @@
           <Property Name="EsServicio" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Categoria" Relationship="Self.FK_Producto_Categoria" FromRole="Producto" ToRole="Categoria" />
           <NavigationProperty Name="Proveedors" Relationship="Self.ProveedorProducto" FromRole="Producto" ToRole="Proveedor" />
+          <NavigationProperty Name="Movimientoes" Relationship="ProveedoresModel.FK_Movimiento_Producto" FromRole="Producto" ToRole="Movimiento" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -171,6 +248,7 @@
           <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Productoes" Relationship="Self.ProveedorProducto" FromRole="Proveedor" ToRole="Producto" />
+          <NavigationProperty Name="Clientes" Relationship="ProveedoresModel.ProveedorCliente" FromRole="Proveedor" ToRole="Cliente" />
         </EntityType>
         <Association Name="FK_Categoria_Categoria">
           <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
@@ -216,7 +294,53 @@
             <End Role="Producto" EntitySet="Productoes" />
             <End Role="Proveedor" EntitySet="Proveedors" />
           </AssociationSet>
+          <EntitySet Name="Clientes" EntityType="ProveedoresModel.Cliente" />
+          <EntitySet Name="Movimientoes" EntityType="ProveedoresModel.Movimiento" />
+          <AssociationSet Name="FK_Movimiento_Producto" Association="ProveedoresModel.FK_Movimiento_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="Movimiento" EntitySet="Movimientoes" />
+          </AssociationSet>
+          <AssociationSet Name="ProveedorCliente" Association="ProveedoresModel.ProveedorCliente">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="Proveedor" EntitySet="Proveedors" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CI" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Proveedors" Relationship="ProveedoresModel.ProveedorCliente" FromRole="Cliente" ToRole="Proveedor" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="TipoMovimiento" Type="Int32" Nullable="false" />
+          <Property Name="ProductoId" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="ProveedoresModel.FK_Movimiento_Producto" FromRole="Movimiento" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Movimiento_Producto">
+          <End Type="ProveedoresModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="ProveedoresModel.Movimiento" Role="Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProveedorCliente">
+          <End Type="ProveedoresModel.Cliente" Role="Cliente" Multiplicity="*" />
+          <End Type="ProveedoresModel.Proveedor" Role="Proveedor" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -271,6 +395,34 @@
             </EndProperty>
             <EndProperty Name="Proveedor">
               <ScalarProperty Name="Id" ColumnName="ProveedorId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="ProveedoresModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="CI" ColumnName="CI" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movimientoes">
+            <EntityTypeMapping TypeName="ProveedoresModel.Movimiento">
+              <MappingFragment StoreEntitySet="Movimiento">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="TipoMovimiento" ColumnName="TipoMovimiento" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ProveedorCliente" TypeName="ProveedoresModel.ProveedorCliente" StoreEntitySet="ProveedorCliente">
+            <EndProperty Name="Proveedor">
+              <ScalarProperty Name="Id" ColumnName="ProveedorId" />
+            </EndProperty>
+            <EndProperty Name="Cliente">
+              <ScalarProperty Name="Id" ColumnName="ClienteId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

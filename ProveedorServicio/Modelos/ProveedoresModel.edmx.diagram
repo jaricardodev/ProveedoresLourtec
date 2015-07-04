@@ -11,6 +11,10 @@
         <AssociationConnector Association="ProveedoresModel.FK_Categoria_Categoria" ManuallyRouted="false" />
         <AssociationConnector Association="ProveedoresModel.FK_Producto_Categoria" ManuallyRouted="false" />
         <AssociationConnector Association="ProveedoresModel.ProveedorProducto" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProveedoresModel.Cliente" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="ProveedoresModel.Movimiento" Width="1.5" PointX="6.875" PointY="6.25" />
+        <AssociationConnector Association="ProveedoresModel.FK_Movimiento_Producto" />
+        <AssociationConnector Association="ProveedoresModel.ProveedorCliente" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

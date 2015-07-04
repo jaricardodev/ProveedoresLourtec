@@ -70,13 +70,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ProveedorServicio.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelos\Categoria.cs">
       <DependentUpon>ProveedoresModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Modelos\CategoriaDTO.cs" />
+    <Compile Include="Modelos\Cliente.cs">
+      <DependentUpon>ProveedoresModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\Movimiento.cs">
+      <DependentUpon>ProveedoresModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Modelos\Producto.cs">
       <DependentUpon>ProveedoresModel.tt</DependentUpon>
     </Compile>
@@ -128,6 +136,8 @@
       <LastGenOutput>ProveedoresModel.cs</LastGenOutput>
     </Content>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\proveedorLourtec - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\proveedorLourtec - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

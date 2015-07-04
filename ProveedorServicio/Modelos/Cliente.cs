@@ -12,30 +12,18 @@ namespace ProveedorServicio.Modelos
     using System;
     using System.Collections.Generic;
     
-    public partial class Producto
+    public partial class Cliente
     {
-        public Producto()
+        public Cliente()
         {
             this.Proveedors = new HashSet<Proveedor>();
-            this.Movimientoes = new HashSet<Movimiento>();
         }
     
         public int Id { get; set; }
-        public string UPC { get; set; }
         public string Nombre { get; set; }
-        public string UMId { get; set; }
-        public int CategoriaId { get; set; }
-        public decimal Costo { get; set; }
-        public decimal Precio { get; set; }
-        public System.DateTime FechaRegistro { get; set; }
-        public bool Exento { get; set; }
-        public decimal Existencia { get; set; }
-        public bool Activo { get; set; }
-        public bool TipoProducto { get; set; }
-        public bool EsServicio { get; set; }
+        public string Email { get; set; }
+        public string CI { get; set; }
     
-        public virtual Categoria Categoria { get; set; }
         public virtual ICollection<Proveedor> Proveedors { get; set; }
-        public virtual ICollection<Movimiento> Movimientoes { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace ProveedorServicio.Modelos
         public Proveedor()
         {
             this.Productoes = new HashSet<Producto>();
+            this.Clientes = new HashSet<Cliente>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,6 @@ namespace ProveedorServicio.Modelos
         public System.DateTime FechaRegistro { get; set; }
     
         public virtual ICollection<Producto> Productoes { get; set; }
+        public virtual ICollection<Cliente> Clientes { get; set; }
     }
 }
