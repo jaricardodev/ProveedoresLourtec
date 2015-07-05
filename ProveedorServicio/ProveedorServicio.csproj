@@ -29,6 +29,17 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="ProveedoresEntities-Deployment" Order="1">
+          <Destination Path="Data Source=tcp:doayvvu38q.database.windows.net,1433%3bInitial Catalog=Proveedores%3bIntegrated Security=False%3bUser ID=proveedor%40doayvvu38q%3bPassword=M1cr0s0fT%3bConnect Timeout=30%3bEncrypt=True" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=.\sqlexpress%3bInitial Catalog=Proveedores%3bPersist Security Info=True%3bUser ID=proveedor%3bPassword=proveedor%3bMultipleActiveResultSets=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\ProveedoresEntities-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +48,17 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="ProveedoresEntities-Deployment" Order="1">
+          <Destination Path="doayvvu38q.database.windows.net" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=.\sqlexpress%3bInitial Catalog=Proveedores%3bPersist Security Info=True%3bUser ID=proveedor%3bPassword=proveedor%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="AutoScripts\ProveedoresEntities-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
