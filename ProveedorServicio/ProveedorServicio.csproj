@@ -69,6 +69,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBScript\ProveedoresServicio.sql" />
     <Content Include="ProveedorServicio.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -82,6 +83,9 @@
     <Compile Include="Modelos\Cliente.cs">
       <DependentUpon>ProveedoresModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Modelos\ClienteDTO.cs" />
+    <Compile Include="Modelos\ProveedorPartial.cs" />
+    <Compile Include="Modelos\RespuestaOperacionListado.cs" />
     <Compile Include="Modelos\Movimiento.cs">
       <DependentUpon>ProveedoresModel.tt</DependentUpon>
     </Compile>
@@ -108,11 +112,14 @@
       <DependentUpon>ProveedoresModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Modelos\ProveedorDTO.cs" />
+    <Compile Include="Modelos\MovimientoDTO.cs" />
+    <Compile Include="Modelos\RespuestaOperacionSimple.cs" />
     <Compile Include="ProveedorServicio.svc.cs">
       <DependentUpon>ProveedorServicio.svc</DependentUpon>
     </Compile>
     <Compile Include="IProveedorServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ExceptionExtensiones.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -23,6 +23,7 @@ namespace ProveedorServicio.Modelos
         public string Nombre { get; set; }
         public string Email { get; set; }
         public string CI { get; set; }
+        public System.DateTime FechaRegistro { get; set; }
     
         public virtual ICollection<Proveedor> Proveedors { get; set; }
     }

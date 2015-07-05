@@ -14,49 +14,81 @@ namespace ProveedorServicio
     public interface IProveedorServicio
     {
         #region Proveedor
+        [OperationContract]
+        RespuestaOperacionListado<ProveedorDTO> BuscarProveedor();
+      
 
         [OperationContract]
-        List<ProveedorDTO> BuscarProveedor();
+        RespuestaOparacionSimple<Proveedor> IncluirProveedor(Proveedor aProveedor);
 
         [OperationContract]
-        bool IncluirProveedor(Proveedor aProveedor);
+        RespuestaOparacionSimple<Proveedor> ModifcarProveedor(Proveedor aProveedor);
 
         [OperationContract]
-        bool ModifcarProveedor(Proveedor aProveedor);
-
-        [OperationContract]
-        bool EliminarProveedor(Proveedor aProveedor);
+        RespuestaOparacionSimple<Proveedor> EliminarProveedor(Proveedor aProveedor);
         #endregion
 
 
         #region Producto
         [OperationContract]
-        List<ProductoDTO> BuscarProducto();
+        RespuestaOperacionListado<ProductoDTO> BuscarProducto();
 
         [OperationContract]
-        bool IncluirProducto(Producto aProducto);
+        RespuestaOparacionSimple<Producto> IncluirProducto(Producto aProducto);
 
         [OperationContract]
-        bool ModifcarProducto(Producto aProducto);
+        RespuestaOparacionSimple<Producto> ModifcarProducto(Producto aProducto);
 
         [OperationContract]
-        bool EliminarProducto(Producto aProducto);
+        RespuestaOparacionSimple<Producto> EliminarProducto(Producto aProducto);
         #endregion
 
         #region Categoria
 
         [OperationContract]
-        List<CategoriaDTO> BuscarCategoria();
+        RespuestaOperacionListado<CategoriaDTO> BuscarCategoria();
 
         [OperationContract]
-        bool IncluirCategoria(Categoria aCategoria);
+        RespuestaOparacionSimple<Categoria> IncluirCategoria(Categoria aCategoria);
 
         [OperationContract]
-        bool ModifcarCategoria(Categoria aCategoria);
+        RespuestaOparacionSimple<Categoria> ModifcarCategoria(Categoria aCategoria);
 
         [OperationContract]
-        bool EliminarCategoria(Categoria aCategoria);
+        RespuestaOparacionSimple<Categoria> EliminarCategoria(Categoria aCategoria);
         #endregion
+
+        #region Cliente
+
+        [OperationContract]
+        RespuestaOperacionListado<ClienteDTO> BuscarCliente();
+
+        [OperationContract]
+        RespuestaOparacionSimple<Cliente> IncluirCliente(Cliente aCliente);
+
+        [OperationContract]
+        RespuestaOparacionSimple<Cliente> ModifcarCliente(Cliente aCliente);
+
+        [OperationContract]
+        RespuestaOparacionSimple<Cliente> EliminarCliente(Cliente aCliente);
+        #endregion
+
+        #region Movimiento
+
+        [OperationContract]
+        RespuestaOperacionListado<MovimientoDTO> BuscarMovimiento();
+
+        [OperationContract]
+        RespuestaOparacionSimple<Movimiento> IncluirMovimiento(Movimiento aMovimiento);
+
+        [OperationContract]
+        RespuestaOparacionSimple<Movimiento> ModifcarMovimiento(Movimiento aMovimiento);
+
+        [OperationContract]
+        RespuestaOparacionSimple<Movimiento> EliminarMovimiento(Movimiento aMovimiento);
+        #endregion
+
+
         //[OperationContract]
         //string GetData(int value);
 
