@@ -165,7 +165,6 @@
       <LastGenOutput>ProveedoresModel.cs</LastGenOutput>
     </Content>
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\proveedorLourtec - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\proveedorLourtec - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
