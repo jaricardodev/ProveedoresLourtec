@@ -14,6 +14,7 @@ namespace ProveedorServicio.Modelos
             this.Id = aCategoria.Id;
             this.PadreId = aCategoria.PadreId;
             this.Nombre = aCategoria.Nombre;
+            NombrePadre = aCategoria.Categoria2.Nombre;
         }
 
 
@@ -23,5 +24,8 @@ namespace ProveedorServicio.Modelos
         public int? PadreId { get; set; }
         [DataMember]
         public string Nombre { get; set; }
+
+        [DataMember]
+        public string NombrePadre { get; set; }
     }
 }

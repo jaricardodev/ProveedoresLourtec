@@ -361,7 +361,7 @@ namespace ProveedorServicio
             {
                 using (var _Contexto = new ProveedoresEntities())
                 {
-                    var _Datos = _Contexto.Categorias.ToList().Select(aObj => new CategoriaDTO(aObj)).ToList();
+                    var _Datos = _Contexto.Categorias.Include(aCat=>aCat.Categoria2).ToList().Select(aObj => new CategoriaDTO(aObj)).ToList();
                     return new RespuestaOperacionListado<CategoriaDTO>
                     {
                         DatosRespuesta = _Datos,
