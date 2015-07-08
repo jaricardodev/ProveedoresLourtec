@@ -16,6 +16,7 @@ namespace ProveedorServicio
             TipoMovimiento = aMovimiento.TipoMovimiento;
             ProductoId = aMovimiento.ProductoId;
             Cantidad = aMovimiento.Cantidad;
+            NombreProducto = aMovimiento.Producto.Nombre;
         }
          [DataMember]
         public int Id { get; set; }
@@ -25,6 +26,9 @@ namespace ProveedorServicio
         public int ProductoId { get; set; }
          [DataMember]
         public int Cantidad { get; set; }
+        [DataMember]
+        public string NombreProducto { get; set; }
+
     
     }
 }

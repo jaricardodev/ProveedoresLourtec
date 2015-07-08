@@ -702,7 +702,7 @@ namespace ProveedorServicio
             {
                 using (var _Contexto = new ProveedoresEntities())
                 {
-                    var _Datos = _Contexto.Movimientoes.ToList().Select(aObj => new MovimientoDTO(aObj)).ToList();
+                    var _Datos = _Contexto.Movimientoes.Include(aProd=>aProd.Producto).ToList().Select(aObj => new MovimientoDTO(aObj)).ToList();
                     return new RespuestaOperacionListado<MovimientoDTO>
                     {
                         DatosRespuesta = _Datos,
