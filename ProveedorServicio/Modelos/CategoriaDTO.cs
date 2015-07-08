@@ -20,7 +20,7 @@ namespace ProveedorServicio.Modelos
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public int PadreId { get; set; }
+        public int? PadreId { get; set; }
         [DataMember]
         public string Nombre { get; set; }
     }
