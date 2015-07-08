@@ -11,19 +11,20 @@ namespace ProveedorServicio.Modelos
     {
         public ProductoDTO(Producto aProducto)
         {
-            this.Id = aProducto.Id;
-            this.UPC = aProducto.UPC;
-            this.Nombre = aProducto.Nombre;
-            this.UMId = aProducto.UMId;
-            this.CategoriaId = aProducto.CategoriaId;
-            this.Costo = aProducto.Costo;
-            this.Precio = aProducto.Precio;
-            this.FechaRegistro = aProducto.FechaRegistro;
-            this.Exento = aProducto.Exento;
-            this.Existencia = aProducto.Existencia;
-            this.Activo = aProducto.Activo;
-            this.TipoProducto = aProducto.TipoProducto;
-            this.EsServicio = aProducto.EsServicio;
+            Id = aProducto.Id;
+            UPC = aProducto.UPC;
+            Nombre = aProducto.Nombre;
+            UMId = aProducto.UMId;
+            CategoriaId = aProducto.CategoriaId;
+            Costo = aProducto.Costo;
+            Precio = aProducto.Precio;
+            FechaRegistro = aProducto.FechaRegistro;
+            Exento = aProducto.Exento;
+            Existencia = aProducto.Existencia;
+            Activo = aProducto.Activo;
+            TipoProducto = aProducto.TipoProducto;
+            EsServicio = aProducto.EsServicio;
+            NombreCategoria = aProducto.Categoria.Nombre;
 
         }
 
@@ -42,7 +43,7 @@ namespace ProveedorServicio.Modelos
          [DataMember]
         public decimal Precio { get; set; }
          [DataMember]
-        public System.DateTime FechaRegistro { get; set; }
+        public DateTime FechaRegistro { get; set; }
          [DataMember]
         public bool Exento { get; set; }
          [DataMember]
@@ -53,5 +54,8 @@ namespace ProveedorServicio.Modelos
         public bool TipoProducto { get; set; }
          [DataMember]
         public bool EsServicio { get; set; }
+        [DataMember]
+         public string NombreCategoria { get; set; }
+
     }
 }

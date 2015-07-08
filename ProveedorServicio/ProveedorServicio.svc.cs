@@ -185,7 +185,7 @@ namespace ProveedorServicio
             {
                 using (var _Contexto = new ProveedoresEntities())
                 {
-                    var _Datos = _Contexto.Productoes.ToList().Select(aObj => new ProductoDTO(aObj)).ToList();
+                    var _Datos = _Contexto.Productoes.Include(aProd=>aProd.Categoria).ToList().Select(aObj => new ProductoDTO(aObj)).ToList();
 
                     return new RespuestaOperacionListado<ProductoDTO>
                     {
