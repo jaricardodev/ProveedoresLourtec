@@ -81,11 +81,11 @@ namespace ProveedorServicio
         [OperationContract]
         RespuestaOparacionSimple<Movimiento> IncluirMovimiento(Movimiento aMovimiento);
 
-        [OperationContract]
+       /* [OperationContract]
         RespuestaOparacionSimple<Movimiento> ModifcarMovimiento(Movimiento aMovimiento);
 
         [OperationContract]
-        RespuestaOparacionSimple<Movimiento> EliminarMovimiento(Movimiento aMovimiento);
+        RespuestaOparacionSimple<Movimiento> EliminarMovimiento(Movimiento aMovimiento);*/
         #endregion
 
 

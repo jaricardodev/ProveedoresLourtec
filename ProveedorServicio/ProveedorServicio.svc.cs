@@ -738,7 +738,22 @@ namespace ProveedorServicio
 
                     aMovimiento.Id = _NuevoId;
 
+                    var _ProductoAfectado = _Contexto.Productoes.Find(aMovimiento.ProductoId);
+                    if (aMovimiento.TipoMovimiento == 0)
+                    {
+                        if (_ProductoAfectado.Existencia >= aMovimiento.Cantidad)
+                        {
+                            _ProductoAfectado.Existencia -=  aMovimiento.Cantidad;
+                        }
+                    }
+                    else
+                    {
+                        _ProductoAfectado.Existencia += aMovimiento.Cantidad;
+                    }
+
+                    _Contexto.Entry(_ProductoAfectado).State = EntityState.Modified;
                     _Contexto.Movimientoes.Add(aMovimiento);
+
                     _Contexto.SaveChanges();
 
                     return new RespuestaOparacionSimple<Movimiento>
@@ -777,7 +792,7 @@ namespace ProveedorServicio
           
         }
 
-        public RespuestaOparacionSimple<Movimiento> ModifcarMovimiento(Movimiento aMovimiento)
+      /*  public RespuestaOparacionSimple<Movimiento> ModifcarMovimiento(Movimiento aMovimiento)
         {
             try
             {
@@ -860,7 +875,7 @@ namespace ProveedorServicio
                     Message = _E.ObtenerInnerException()
                 };
             }
-        }
+        }*/
 
         /* public string GetData(int value)
         {

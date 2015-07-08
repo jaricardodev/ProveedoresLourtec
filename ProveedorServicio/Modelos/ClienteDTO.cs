@@ -25,5 +25,7 @@ namespace ProveedorServicio.Modelos
         public string Email { get; set; }
         [DataMember]
         public string CI { get; set; }
+        [DataMember]
+        public System.DateTime FechaRegistro { get; set; }
     }
 }
