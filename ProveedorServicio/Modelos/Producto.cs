@@ -34,8 +34,8 @@ namespace ProveedorServicio.Modelos
         public bool TipoProducto { get; set; }
         public bool EsServicio { get; set; }
     
-        public virtual Categoria Categoria { get; set; }
         public virtual ICollection<Proveedor> Proveedors { get; set; }
         public virtual ICollection<Movimiento> Movimientoes { get; set; }
+        public virtual Categoria Categoria { get; set; }
     }
 }

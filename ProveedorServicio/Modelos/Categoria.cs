@@ -21,7 +21,7 @@ namespace ProveedorServicio.Modelos
         }
     
         public int Id { get; set; }
-        public int PadreId { get; set; }
+        public Nullable<int> PadreId { get; set; }
         public string Nombre { get; set; }
     
         public virtual ICollection<Categoria> Categoria1 { get; set; }

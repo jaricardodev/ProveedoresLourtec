@@ -25,10 +25,10 @@ namespace ProveedorServicio.Modelos
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Categoria> Categorias { get; set; }
         public virtual DbSet<Producto> Productoes { get; set; }
         public virtual DbSet<Proveedor> Proveedors { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Movimiento> Movimientoes { get; set; }
+        public virtual DbSet<Categoria> Categorias { get; set; }
     }
 }

@@ -10,7 +10,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="PadreId" Type="int" Nullable="false" />
+          <Property Name="PadreId" Type="int" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Cliente">
@@ -80,7 +80,7 @@
           <Property Name="ProductoId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Categoria_Categoria">
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
           <End Role="Categoria1" Type="Self.Categoria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categoria">
@@ -204,17 +204,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProveedoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Categoria">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="PadreId" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Categoria1" Relationship="Self.FK_Categoria_Categoria" FromRole="Categoria" ToRole="Categoria1" />
-          <NavigationProperty Name="Categoria2" Relationship="Self.FK_Categoria_Categoria" FromRole="Categoria1" ToRole="Categoria" />
-          <NavigationProperty Name="Productoes" Relationship="Self.FK_Producto_Categoria" FromRole="Categoria" ToRole="Producto" />
-        </EntityType>
         <EntityType Name="Producto">
           <Key>
             <PropertyRef Name="Id" />
@@ -232,9 +221,9 @@
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="TipoProducto" Type="Boolean" Nullable="false" />
           <Property Name="EsServicio" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Categoria" Relationship="Self.FK_Producto_Categoria" FromRole="Producto" ToRole="Categoria" />
           <NavigationProperty Name="Proveedors" Relationship="Self.ProveedorProducto" FromRole="Producto" ToRole="Proveedor" />
           <NavigationProperty Name="Movimientoes" Relationship="ProveedoresModel.FK_Movimiento_Producto" FromRole="Producto" ToRole="Movimiento" />
+          <NavigationProperty Name="Categoria" Relationship="ProveedoresModel.FK_Producto_Categoria" FromRole="Producto" ToRole="Categoria" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -251,46 +240,13 @@
           <NavigationProperty Name="Productoes" Relationship="Self.ProveedorProducto" FromRole="Proveedor" ToRole="Producto" />
           <NavigationProperty Name="Clientes" Relationship="ProveedoresModel.ProveedorCliente" FromRole="Proveedor" ToRole="Cliente" />
         </EntityType>
-        <Association Name="FK_Categoria_Categoria">
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
-          <End Role="Categoria1" Type="Self.Categoria" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categoria">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Categoria1">
-              <PropertyRef Name="PadreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Producto_Categoria">
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
-          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categoria">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Producto">
-              <PropertyRef Name="CategoriaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ProveedorProducto">
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="*" />
         </Association>
         <EntityContainer Name="ProveedoresEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categorias" EntityType="Self.Categoria" />
           <EntitySet Name="Productoes" EntityType="Self.Producto" />
           <EntitySet Name="Proveedors" EntityType="Self.Proveedor" />
-          <AssociationSet Name="FK_Categoria_Categoria" Association="Self.FK_Categoria_Categoria">
-            <End Role="Categoria" EntitySet="Categorias" />
-            <End Role="Categoria1" EntitySet="Categorias" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
-            <End Role="Categoria" EntitySet="Categorias" />
-            <End Role="Producto" EntitySet="Productoes" />
-          </AssociationSet>
           <AssociationSet Name="ProveedorProducto" Association="Self.ProveedorProducto">
             <End Role="Producto" EntitySet="Productoes" />
             <End Role="Proveedor" EntitySet="Proveedors" />
@@ -304,6 +260,15 @@
           <AssociationSet Name="ProveedorCliente" Association="ProveedoresModel.ProveedorCliente">
             <End Role="Cliente" EntitySet="Clientes" />
             <End Role="Proveedor" EntitySet="Proveedors" />
+          </AssociationSet>
+          <EntitySet Name="Categorias" EntityType="ProveedoresModel.Categoria" />
+          <AssociationSet Name="FK_Categoria_Categoria" Association="ProveedoresModel.FK_Categoria_Categoria">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Categoria1" EntitySet="Categorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Categoria" Association="ProveedoresModel.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Producto" EntitySet="Productoes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cliente">
@@ -343,21 +308,47 @@
           <End Type="ProveedoresModel.Cliente" Role="Cliente" Multiplicity="*" />
           <End Type="ProveedoresModel.Proveedor" Role="Proveedor" Multiplicity="*" />
         </Association>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PadreId" Type="Int32" Nullable="true" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Categoria1" Relationship="ProveedoresModel.FK_Categoria_Categoria" FromRole="Categoria" ToRole="Categoria1" />
+          <NavigationProperty Name="Categoria2" Relationship="ProveedoresModel.FK_Categoria_Categoria" FromRole="Categoria1" ToRole="Categoria" />
+          <NavigationProperty Name="Productoes" Relationship="ProveedoresModel.FK_Producto_Categoria" FromRole="Categoria" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Categoria_Categoria">
+          <End Type="ProveedoresModel.Categoria" Role="Categoria" Multiplicity="0..1" />
+          <End Type="ProveedoresModel.Categoria" Role="Categoria1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Categoria1">
+              <PropertyRef Name="PadreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Categoria">
+          <End Type="ProveedoresModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="ProveedoresModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ProveedoresModelStoreContainer" CdmEntityContainer="ProveedoresEntities">
-          <EntitySetMapping Name="Categorias">
-            <EntityTypeMapping TypeName="ProveedoresModel.Categoria">
-              <MappingFragment StoreEntitySet="Categoria">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PadreId" ColumnName="PadreId" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Productoes">
             <EntityTypeMapping TypeName="ProveedoresModel.Producto">
               <MappingFragment StoreEntitySet="Producto">
@@ -428,6 +419,15 @@
               <ScalarProperty Name="Id" ColumnName="ClienteId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="ProveedoresModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PadreId" ColumnName="PadreId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
