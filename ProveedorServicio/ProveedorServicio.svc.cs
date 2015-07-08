@@ -568,6 +568,7 @@ namespace ProveedorServicio
                     }
 
                     aCliente.Id = _NuevoId;
+                    aCliente.FechaRegistro = DateTime.Now;
 
                     _Contexto.Clientes.Add(aCliente);
                     _Contexto.SaveChanges();
