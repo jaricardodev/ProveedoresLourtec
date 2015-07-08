@@ -14,7 +14,11 @@ namespace ProveedorServicio.Modelos
             this.Id = aCategoria.Id;
             this.PadreId = aCategoria.PadreId;
             this.Nombre = aCategoria.Nombre;
-            NombrePadre = aCategoria.Categoria2.Nombre;
+            if (aCategoria.Categoria2 != null)
+            {
+                NombrePadre = aCategoria.Categoria2.Nombre;
+            }
+           
         }
 
 
